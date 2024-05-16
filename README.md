@@ -1,12 +1,12 @@
-# Gestión de Datos Personales
+# 🚀 Gestión de Datos Personales 📊
 
 ## Descripción
 
 Este repositorio contiene una aplicación para la gestión de datos personales. La aplicación permite realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) sobre los registros de datos personales, además de validar y registrar todas las transacciones en un log. La aplicación está diseñada para ser desplegada en contenedores y se estructura mediante microservicios.
 
-## Funcionalidades
+## Funcionalidades 🛠️
 
-### Validaciones Requeridas
+### Validaciones Requeridas ✅
 
 1. **Primer Nombre**: 
     - No debe ser un número.
@@ -34,7 +34,7 @@ Este repositorio contiene una aplicación para la gestión de datos personales. 
 10. **Foto**:
     - El tamaño del archivo no debe superar los 2 MB.
 
-### Otros Requerimientos
+### Otros Requerimientos 📋
 
 1. **Despliegue en Contenedores**:
     - La aplicación debe desplegarse utilizando contenedores.
@@ -60,7 +60,7 @@ Este repositorio contiene una aplicación para la gestión de datos personales. 
 7. **Consulta de Log**:
     - Permitir búsqueda por tipo y documento, y por fecha de transacción.
 
-## Estructura del Proyecto
+## Estructura del Proyecto 📂
 
 El proyecto está organizado de la siguiente manera:
 
@@ -72,7 +72,7 @@ El proyecto está organizado de la siguiente manera:
 - **database/**: Scripts y configuraciones de la base de datos.
 - **README.md**: Este archivo.
 
-## Despliegue
+## Despliegue 🚀
 
 Para desplegar la aplicación, siga estos pasos:
 
@@ -91,11 +91,11 @@ Para desplegar la aplicación, siga estos pasos:
     docker-compose up --build
     ```
 
-## Uso
+## Uso 🖥️
 
 Una vez desplegada la aplicación, puede acceder a ella a través de la dirección [http://localhost:puerto](http://localhost:puerto). Utilice la interfaz web para gestionar los datos personales, realizando operaciones CRUD y consultando el log de transacciones según sea necesario.
 
-## Contribución
+## Contribución 🤝
 
 Si desea contribuir al proyecto, por favor siga estos pasos:
 
@@ -105,10 +105,10 @@ Si desea contribuir al proyecto, por favor siga estos pasos:
 4. **Empuje a la rama** (`git push origin feature/funcion`).
 5. **Abra un Pull Request**.
 
-## Licencia
+## Licencia 📜
 
 Este proyecto está licenciado bajo la [MIT License](LICENSE).
 
 ---
 
-¡Gracias por utilizar nuestra aplicación para la gestión de datos personales! Si tiene alguna pregunta o sugerencia, no dude en abrir un issue.
+¡Gracias por utilizar nuestra aplicación para la gestión de datos personales! Si tiene alguna pregunta o sugerencia, no dude en abrir un issue. ✨
