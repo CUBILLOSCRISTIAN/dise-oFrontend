@@ -7,11 +7,11 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "@nextui-org/react";
-import { SearchIcon } from "../icons/SearchIcon";
-import { ChevronDownIcon } from "../icons/ChevronDownIcon";
-import { PlusIcon } from "../icons/PlusIcon";
-import { capitalize } from "../utils";
-import { statusOptions, columns } from "../data";
+import { SearchIcon } from "../../icons/SearchIcon";
+import { ChevronDownIcon } from "../../icons/ChevronDownIcon";
+import { PlusIcon } from "../../icons/PlusIcon";
+import { capitalize } from "../../utils";
+import { statusOptions, columns } from "../../data";
 import UserForm from "./UserForm";
 
 const FilterSection = ({

@@ -13,8 +13,8 @@ import {
   SelectItem,
   Progress,
 } from "@nextui-org/react";
-import { PlusIcon } from "../icons/PlusIcon.jsx";
-import { MailIcon } from "../icons/MailIcon.jsx";
+import { PlusIcon } from "../../icons/PlusIcon.jsx";
+import { MailIcon } from "../../icons/MailIcon.jsx";
 
 // Definimos el componente de la aplicación
 const UserForm = () => {
