@@ -1,12 +1,30 @@
 import React from "react";
-import { Input, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/react";
+import {
+  Input,
+  Button,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from "@nextui-org/react";
 import { SearchIcon } from "../icons/SearchIcon";
 import { ChevronDownIcon } from "../icons/ChevronDownIcon";
 import { PlusIcon } from "../icons/PlusIcon";
 import { capitalize } from "../utils";
 import { statusOptions, columns } from "../data";
+import UserForm from "./UserForm";
 
-const FilterSection = ({ filterValue, setFilterValue, statusFilter, setStatusFilter, visibleColumns, setVisibleColumns, onSearchChange, usersLength, onRowsPerPageChange }) => (
+const FilterSection = ({
+  filterValue,
+  setFilterValue,
+  statusFilter,
+  setStatusFilter,
+  visibleColumns,
+  setVisibleColumns,
+  onSearchChange,
+  usersLength,
+  onRowsPerPageChange,
+}) => (
   <div className="flex flex-col gap-4">
     <div className="flex justify-between gap-3 items-end">
       <Input
@@ -26,7 +44,11 @@ const FilterSection = ({ filterValue, setFilterValue, statusFilter, setStatusFil
       <div className="flex gap-3">
         <Dropdown>
           <DropdownTrigger className="hidden sm:flex">
-            <Button endContent={<ChevronDownIcon className="text-small" />} size="sm" variant="flat">
+            <Button
+              endContent={<ChevronDownIcon className="text-small" />}
+              size="sm"
+              variant="flat"
+            >
               Status
             </Button>
           </DropdownTrigger>
@@ -47,7 +69,11 @@ const FilterSection = ({ filterValue, setFilterValue, statusFilter, setStatusFil
         </Dropdown>
         <Dropdown>
           <DropdownTrigger className="hidden sm:flex">
-            <Button endContent={<ChevronDownIcon className="text-small" />} size="sm" variant="flat">
+            <Button
+              endContent={<ChevronDownIcon className="text-small" />}
+              size="sm"
+              variant="flat"
+            >
               Columns
             </Button>
           </DropdownTrigger>
@@ -66,13 +92,15 @@ const FilterSection = ({ filterValue, setFilterValue, statusFilter, setStatusFil
             ))}
           </DropdownMenu>
         </Dropdown>
-        <Button className="bg-foreground text-background" endContent={<PlusIcon />} size="sm">
-          Add New
-        </Button>
+        
+        {/* Button to open the modal */}
+        <UserForm />
       </div>
     </div>
     <div className="flex justify-between items-center">
-      <span className="text-default-400 text-small">Total {usersLength} users</span>
+      <span className="text-default-400 text-small">
+        Total {usersLength} users
+      </span>
       <label className="flex items-center text-default-400 text-small">
         Rows per page:
         <select
