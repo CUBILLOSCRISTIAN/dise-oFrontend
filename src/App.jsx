@@ -1,12 +1,7 @@
 import React from "react";
-import { SideBar } from "../src/components/SideBar.jsx";
+import { SideBar } from "./components/SideBar/SideBar";
 import { Routes, Route } from "react-router-dom";
-
-import { Home } from "./Screens/Home.jsx";
-import { CreateUser } from "./Screens/CreateUser.jsx";
-import { Users } from "./Screens/Users.jsx";
-import { SearchLogger } from "./Screens/SearchLogger.jsx";
-
+import  UserDashboard  from "./components/UserDashboard/UserDashboard.jsx";
 
 function App() {
   return (
@@ -18,10 +13,7 @@ function App() {
             <div className="py-6">
               <div className="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
                 <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/Users" element={<Users />} />
-                  <Route path="/CreateUser" element={<CreateUser />} />
-                  <Route path="/SearchLogger" element={<SearchLogger />} />
+                  <Route path="/" element={<UserDashboard />} />
                 </Routes>
               </div>
             </div>

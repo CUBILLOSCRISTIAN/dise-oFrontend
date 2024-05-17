@@ -1,13 +1,15 @@
 import React from "react";
-import TableComponent from "./components/TableComponent";
-import FilterSection from "./components/FilterSection";
-import PaginationSection from "./components/PaginationSection";
-import { columns, users, INITIAL_VISIBLE_COLUMNS } from "./data";
+import TableComponent from "./TableComponent";
+import FilterSection from "./FilterSection";
+import PaginationSection from "./PaginationSection";
+import { columns, users, INITIAL_VISIBLE_COLUMNS } from "../../data";
 
 const UserDashboard = () => {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
-  const [visibleColumns, setVisibleColumns] = React.useState(new Set(INITIAL_VISIBLE_COLUMNS));
+  const [visibleColumns, setVisibleColumns] = React.useState(
+    new Set(INITIAL_VISIBLE_COLUMNS)
+  );
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState({
@@ -21,19 +23,24 @@ const UserDashboard = () => {
 
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === "all") return columns;
-    return columns.filter((column) => Array.from(visibleColumns).includes(column.uid));
+    return columns.filter((column) =>
+      Array.from(visibleColumns).includes(column.uid)
+    );
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
     let filteredUsers = [...users];
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase()),
+        user.name.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
-    if (statusFilter !== "all" && Array.from(statusFilter).length !== statusOptions.length) {
+    if (
+      statusFilter !== "all" &&
+      Array.from(statusFilter).length !== statusOptions.length
+    ) {
       filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status),
+        Array.from(statusFilter).includes(user.status)
       );
     }
     return filteredUsers;
@@ -93,17 +100,20 @@ const UserDashboard = () => {
     />
   );
 
-  const classNames = React.useMemo(() => ({
-    wrapper: ["max-h-[382px]", "max-w-3xl"],
-    th: ["bg-transparent", "text-default-500", "border-b", "border-divider"],
-    td: [
-      "group-data-[first=true]:first:before:rounded-none",
-      "group-data-[first=true]:last:before:rounded-none",
-      "group-data-[middle=true]:before:rounded-none",
-      "group-data-[last=true]:first:before:rounded-none",
-      "group-data-[last=true]:last:before:rounded-none",
-    ],
-  }), []);
+  const classNames = React.useMemo(
+    () => ({
+      wrapper: ["max-h-[382px]", "max-w-3xl"],
+      th: ["bg-transparent", "text-default-500", "border-b", "border-divider"],
+      td: [
+        "group-data-[first=true]:first:before:rounded-none",
+        "group-data-[first=true]:last:before:rounded-none",
+        "group-data-[middle=true]:before:rounded-none",
+        "group-data-[last=true]:first:before:rounded-none",
+        "group-data-[last=true]:last:before:rounded-none",
+      ],
+    }),
+    []
+  );
 
   return (
     <TableComponent

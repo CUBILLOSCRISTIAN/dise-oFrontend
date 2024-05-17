@@ -1,6 +1,5 @@
 import React from "react";
 import { ItemSideBar } from "./ItemSideBar";
-import { SearchInput } from "./SearchInput";
 
 export function SideBar() {
   const iconHome =
@@ -16,8 +15,6 @@ export function SideBar() {
         <div className="flex items-center flex-shrink-0 px-4">
           <h1 className="font-extrabold size-max">DISEÑO 2</h1>
         </div>
-
-        
 
         {/* Sidebar items */}
         <div className="px-4 mt-6">
@@ -38,7 +35,6 @@ export function SideBar() {
               </ItemSideBar>
 
               <hr className="border-gray-200" />
-
 
               <hr className="border-gray-200" />
 
