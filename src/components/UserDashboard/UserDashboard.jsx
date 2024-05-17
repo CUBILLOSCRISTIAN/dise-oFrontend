@@ -2,7 +2,7 @@ import React from "react";
 import TableComponent from "./TableComponent";
 import FilterSection from "./FilterSection";
 import PaginationSection from "./PaginationSection";
-import { columns, users, INITIAL_VISIBLE_COLUMNS } from "../../data";
+import { columns, users, INITIAL_VISIBLE_COLUMNS, statusOptions } from "../../data";
 
 const UserDashboard = () => {
   const [filterValue, setFilterValue] = React.useState("");
