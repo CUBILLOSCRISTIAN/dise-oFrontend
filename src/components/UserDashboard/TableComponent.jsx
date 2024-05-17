@@ -1,8 +1,25 @@
 import React from "react";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
+import {
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@nextui-org/react";
 import RenderCell from "./RenderCell";
 
-const TableComponent = ({ headerColumns, sortedItems, selectedKeys, setSelectedKeys, sortDescriptor, setSortDescriptor, classNames, topContent, bottomContent }) => (
+const TableComponent = ({
+  headerColumns,
+  sortedItems,
+  selectedKeys,
+  setSelectedKeys,
+  sortDescriptor,
+  setSortDescriptor,
+  classNames,
+  topContent,
+  bottomContent,
+}) => (
   <Table
     isCompact
     removeWrapper
@@ -16,7 +33,7 @@ const TableComponent = ({ headerColumns, sortedItems, selectedKeys, setSelectedK
     }}
     classNames={classNames}
     selectedKeys={selectedKeys}
-    selectionMode="multiple"
+    selectionMode="single"
     sortDescriptor={sortDescriptor}
     topContent={topContent}
     topContentPlacement="outside"
