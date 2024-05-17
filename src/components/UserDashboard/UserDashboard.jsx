@@ -2,7 +2,12 @@ import React from "react";
 import TableComponent from "./TableComponent";
 import FilterSection from "./FilterSection";
 import PaginationSection from "./PaginationSection";
-import { columns, users, INITIAL_VISIBLE_COLUMNS, statusOptions } from "../../data";
+import {
+  columns,
+  users,
+  INITIAL_VISIBLE_COLUMNS,
+  statusOptions,
+} from "../../data";
 
 const UserDashboard = () => {
   const [filterValue, setFilterValue] = React.useState("");
@@ -32,7 +37,7 @@ const UserDashboard = () => {
     let filteredUsers = [...users];
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase())
+        user.numberDocument.toString().includes(filterValue)
       );
     }
     if (
