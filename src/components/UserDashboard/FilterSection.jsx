@@ -33,7 +33,7 @@ const FilterSection = ({
           base: "w-full sm:max-w-[44%]",
           inputWrapper: "border-1",
         }}
-        placeholder="Search by name..."
+        placeholder="Search by number document..."
         size="sm"
         startContent={<SearchIcon className="text-default-300" />}
         value={filterValue}
