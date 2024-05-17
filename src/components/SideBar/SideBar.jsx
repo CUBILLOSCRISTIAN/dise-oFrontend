@@ -36,8 +36,6 @@ export function SideBar() {
 
               <hr className="border-gray-200" />
 
-              <hr className="border-gray-200" />
-
               <ItemSideBar icon={iconLog} to="/SearchLogger">
                 Search Logger
               </ItemSideBar>

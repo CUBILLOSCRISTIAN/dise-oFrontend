@@ -9,7 +9,6 @@ import {
 import { HiArrowNarrowRight } from "react-icons/hi";
 
 export default function CardPage() {
-
   return (
     <Card
       isBlurred
@@ -37,6 +36,7 @@ export default function CardPage() {
           variant="bordered"
           radius="full"
           endContent={<HiArrowNarrowRight />}
+          href="#"
         >
           See more!
         </Button>
