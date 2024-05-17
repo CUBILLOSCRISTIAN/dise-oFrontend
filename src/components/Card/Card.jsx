@@ -5,6 +5,7 @@ import {
   CardBody,
   CardFooter,
   Button,
+  Divider,
 } from "@nextui-org/react";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
@@ -12,23 +13,24 @@ export default function CardPage() {
   return (
     <Card
       isBlurred
-      className="border-none bg-background/60 dark:bg-default-100/50 max-w-[410px]"
+      className="border-none bg-cyan-100 bg-background100/50"
       shadow="sm"
     >
       <CardHeader className="justify-between">
         <div className="flex gap-5">
           <div className="flex flex-col gap-1 items-start justify-center">
             <h1 className="text-2xl font-semibold leading-none text-default-600">
-              Create Users
+              What can you do?
             </h1>
           </div>
         </div>
       </CardHeader>
       <CardBody className="px-3 py-0 text-small text-default-400">
-        <p>
-          Create users and manage them with different functionalities we offer
-          you!
-        </p>
+        <ul>
+          <li> Create and modify records of individuals.</li>
+          <li>Easily view and delete data.</li>
+          <li>Review activity history.</li>
+        </ul>
       </CardBody>
       <CardFooter className="gap-3">
         <Button
@@ -38,7 +40,7 @@ export default function CardPage() {
           endContent={<HiArrowNarrowRight />}
           href="#"
         >
-          See more!
+          Get started today!
         </Button>
       </CardFooter>
     </Card>

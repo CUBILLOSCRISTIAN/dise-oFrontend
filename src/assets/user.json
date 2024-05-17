@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "userName": "CUBILLOSCRISTIAN",
+      "name": "Cristian Cubillos",
+      "description": " 📱 Hello I'm Cristian Cubillos, a self-taught mobile and backend developer. 💻 I'm proficient in Dart, JavaScript, and popular tools for mobile and backend development. 📱 Passionate about delivering smooth mobile experiences paired with secure and high-performance backend solutions."
+    },
+    {
+      "id": 2,
+      "userName": "sebastian852-852",
+      "name": "Sebastian Barrios",
+      "description": "Hello! I'm Sebastian Barrios, a backend developer.🚀 I focus on creating robust and scalable backends.🔨 Currently, I am working on personal backend development projects.📝 I master TypeScript, JavaScript, and popular tools for backend development.🔭 Interested in developing backends with a focus on security and optimal performance."
+    },
+    {
+      "id": 3,
+      "userName": "david0131",
+      "name": "David Escorcia",
+      "description": "Hello! I am David Escorcia, I am a dedicated 9th-semester Systems Engieneering student, aged 22, I like movies of almost every genre, marvel movies are my favorite. I'm currently learning frontend on my own, and I want to learn about artificial intelligence."
+    },
+    {
+      "id": 4,
+      "userName": "Jcoll05",
+      "name": "Julian Coll",
+      "description": "Hello! I am Julian Coll, I am coursing 8th-Semestre in Systems Engineering, aged 22, I am interested in Cybersecurity, Pentesting and technology. I got experience as a freelancer making websites for clients on the exterior."
+    }
+  ]
+}

@@ -2,7 +2,7 @@ import React from "react";
 import { SideBar } from "./components/SideBar/SideBar";
 import { Routes, Route } from "react-router-dom";
 import UserDashboard from "./components/UserDashboard/UserDashboard.jsx";
-import CardPage from "./components/Card/Card.jsx";
+import { Home } from "./components/Pages/HomePage.jsx";
 
 function App() {
   return (
@@ -14,8 +14,8 @@ function App() {
             <div className="py-6">
               <div className="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
                 <Routes>
-                  <Route path="/" element={<UserDashboard />} />
-                  <Route path="/Users" element={<CardPage />} />
+                  <Route path="/" element={<Home />} />
+                  <Route path="/Users" element={<UserDashboard />} />
                 </Routes>
               </div>
             </div>
