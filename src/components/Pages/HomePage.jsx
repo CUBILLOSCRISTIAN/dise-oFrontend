@@ -32,7 +32,7 @@ export function Home() {
               <div className="flex items-center justify-around">
                 <div className="mt-20 ml-10">
                   <Members />
-                  <p className="inline px-3 py-1   mb-5 text-xs font-medium text-gray-400 border-2 rounded-lg font-heading sm:text-sm opacity-40 border-white/10">
+                  <p className="inline px-3 py-1   mb-5 text-xs font-medium text-gray-800 border-2 rounded-lg font-heading sm:text-sm opacity-40 border-white/10">
                     Swipt to see more members
                   </p>
                 </div>

@@ -5,7 +5,7 @@ import {
   CardBody,
   CardFooter,
   Button,
-  Divider,
+  Spacer,
 } from "@nextui-org/react";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
@@ -25,11 +25,13 @@ export default function CardPage() {
           </div>
         </div>
       </CardHeader>
-      <CardBody className="px-3 py-0 text-small text-default-400">
+      <CardBody className="flex px-3 py-0 text-small text-default-400">
         <ul>
-          <li> Create and modify records of individuals.</li>
-          <li>Easily view and delete data.</li>
-          <li>Review activity history.</li>
+          <li> Create and modify records of individuals 📝</li>
+          <Spacer x={4} />
+          <li>Easily view and delete data 🔍</li>
+          <Spacer x={4} />
+          <li>Review activity history 📊</li>
         </ul>
       </CardBody>
       <CardFooter className="gap-3">
