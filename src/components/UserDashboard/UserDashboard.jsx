@@ -2,14 +2,12 @@ import React from "react";
 import TableComponent from "./TableComponent";
 import FilterSection from "./FilterSection";
 import PaginationSection from "./PaginationSection";
-import {
-  columns,
-  users,
-  INITIAL_VISIBLE_COLUMNS,
-  statusOptions,
-} from "../../data";
+import { columns, INITIAL_VISIBLE_COLUMNS, statusOptions } from "../../data";
+import { Spinner } from "@nextui-org/react";
 
 const UserDashboard = () => {
+  const [users, setUsers] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(
@@ -18,10 +16,26 @@ const UserDashboard = () => {
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState({
-    column: "age",
+    column: "name",
     direction: "ascending",
   });
   const [page, setPage] = React.useState(1);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch("http://localhost:3004/users");
+      const data = await response.json();
+      setUsers(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      setLoading(false);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const pages = Math.ceil(users.length / rowsPerPage);
   const hasSearchFilter = Boolean(filterValue);
@@ -40,14 +54,14 @@ const UserDashboard = () => {
         user.numberDocument.toString().includes(filterValue)
       );
     }
-    if (
-      statusFilter !== "all" &&
-      Array.from(statusFilter).length !== statusOptions.length
-    ) {
-      filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status)
-      );
-    }
+    // if (
+    //   statusFilter !== "all" &&
+    //   Array.from(statusFilter).length !== statusOptions.length
+    // ) {
+    //   filteredUsers = filteredUsers.filter((user) =>
+    //     Array.from(statusFilter).includes(user.status)
+    //   );
+    // }
     return filteredUsers;
   }, [users, filterValue, statusFilter]);
 
@@ -120,7 +134,9 @@ const UserDashboard = () => {
     []
   );
 
-  return (
+  return loading ? (
+    <Spinner label="Loading..." color="warning" />
+  ) : (
     <TableComponent
       headerColumns={headerColumns}
       sortedItems={sortedItems}
