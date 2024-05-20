@@ -13,7 +13,7 @@ const UserDashboard = () => {
   const [visibleColumns, setVisibleColumns] = React.useState(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
-  const [statusFilter, setStatusFilter] = React.useState("all");
+  const [statusFilter, setStatusFilter] = React.useState("active");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState({
     column: "numberDocument",

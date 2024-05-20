@@ -16,7 +16,7 @@ import {
 import { PlusIcon } from "../../icons/PlusIcon.jsx";
 import { MailIcon } from "../../icons/MailIcon.jsx";
 import ProfilePhotoUploader from "./ProfilePhotoUploader.jsx";
-import { parseDate, getLocalTimeZone } from "@internationalized/date";
+import {getLocalTimeZone, today} from "@internationalized/date";
 import { useDateFormatter } from "@react-aria/i18n";
 
 // Definimos el componente de la aplicación
@@ -334,6 +334,7 @@ const UserForm = () => {
                 showMonthAndYearPickers
                 description={"This is my birth date."}
                 isInvalid={errorBirthDay}
+                maxValue={today(getLocalTimeZone())}
               />
               {/* Campo de entrada para el celular */}
               <Input

@@ -40,7 +40,7 @@ export default function CardPage() {
           variant="bordered"
           radius="full"
           endContent={<HiArrowNarrowRight />}
-          href="#"
+          href="/Users"
         >
           Get started today!
         </Button>

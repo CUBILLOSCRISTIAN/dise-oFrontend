@@ -14,7 +14,6 @@ import { capitalize } from "../../utils";
 import { statusOptions, columns } from "../../data";
 import UserForm from "./UserForm";
 
-
 const FilterSection = ({
   filterValue,
   setFilterValue,
@@ -50,31 +49,6 @@ const FilterSection = ({
               size="sm"
               variant="flat"
             >
-              Status
-            </Button>
-          </DropdownTrigger>
-          <DropdownMenu
-            disallowEmptySelection
-            aria-label="Table Columns"
-            closeOnSelect={false}
-            selectedKeys={statusFilter}
-            selectionMode="multiple"
-            onSelectionChange={setStatusFilter}
-          >
-            {statusOptions.map((status) => (
-              <DropdownItem key={status.uid} className="capitalize">
-                {capitalize(status.name)}
-              </DropdownItem>
-            ))}
-          </DropdownMenu>
-        </Dropdown>
-        <Dropdown>
-          <DropdownTrigger className="hidden sm:flex">
-            <Button
-              endContent={<ChevronDownIcon className="text-small" />}
-              size="sm"
-              variant="flat"
-            >
               Columns
             </Button>
           </DropdownTrigger>
@@ -85,6 +59,7 @@ const FilterSection = ({
             selectedKeys={visibleColumns}
             selectionMode="multiple"
             onSelectionChange={setVisibleColumns}
+            disabledKeys={["actions", "numberDocument"]}
           >
             {columns.map((column) => (
               <DropdownItem key={column.uid} className="capitalize">
@@ -93,7 +68,7 @@ const FilterSection = ({
             ))}
           </DropdownMenu>
         </Dropdown>
-        
+
         {/* Button to open the modal */}
         <UserForm />
       </div>
