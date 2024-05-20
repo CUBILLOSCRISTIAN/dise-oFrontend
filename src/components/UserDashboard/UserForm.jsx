@@ -15,7 +15,9 @@ import {
 } from "@nextui-org/react";
 import { PlusIcon } from "../../icons/PlusIcon.jsx";
 import { MailIcon } from "../../icons/MailIcon.jsx";
-import  ProfilePhotoUploader from "./ProfilePhotoUploader.jsx";
+import ProfilePhotoUploader from "./ProfilePhotoUploader.jsx";
+import { parseDate, getLocalTimeZone } from "@internationalized/date";
+import { useDateFormatter } from "@react-aria/i18n";
 
 // Definimos el componente de la aplicación
 const UserForm = () => {
@@ -49,26 +51,15 @@ const UserForm = () => {
 
   const [birthDay, setBirthDay] = useState(null);
   const [errorBirthDay, setErrorBirthDay] = useState(false); // Estado para manejar errores de validación
+  let formatter = useDateFormatter({ dateStyle: "long" });
 
-  const [progress, setProgress] = React.useState(0);
-
-  // Función para manejar la selección de la foto
-  const handlePhotoChange = (e) => {
-    const file = e.target.files[0];
-    if (file && file.size > 2 * 1024 * 1024) {
-      // Verificar si el tamaño supera los 2 MB
-      setPhotoError("File size exceeds 2 MB limit");
-    } else {
-      setPhoto(file);
-      setPhotoError("");
-    }
-  };
+  const [progress, setProgress] = useState(0);
 
   // Estado para manejar si el modal está abierto o cerrado
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // Función para manejar el envío del formulario
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Realizar validaciones aquí
     // Si todas las validaciones son exitosas, realizar acción necesaria (por ejemplo, enviar datos al servidor)
     // Si hay errores de validación, mostrar mensajes de error apropiados
@@ -122,19 +113,56 @@ const UserForm = () => {
     }
     setErrorNumberDocument(false);
 
+    const name = `${firstName} ${secondName} ${lastName}`.trim();
+
+    // Verificar que birthDay sea un objeto de fecha y convertir si es necesario
+    let formattedBirthDay = birthDay;
+    if (birthDay instanceof Date) {
+      formattedBirthDay = birthDay.toISOString();
+    } else {
+      try {
+        formattedBirthDay = new Date(birthDay).toISOString();
+      } catch (e) {
+        console.error("Invalid birthDay format");
+        setErrorBirthDay(true);
+        return;
+      }
+    }
+
     const data = {
-      photo,
-      firstName,
-      secondName,
-      lastName,
+      name,
       email,
-      birthDay,
+      birthDay: formattedBirthDay, // Usar el valor formateado
       numberPhone,
       documentType,
       numberDocument,
       gender,
     };
-    console.log({ data });
+
+    console.log("Data to send:", data);
+
+    try {
+      const response = await fetch("http://localhost:3001/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        // Manejar la respuesta exitosa
+        console.log("User created successfully");
+        onClose(); // Cerrar el modal si el usuario se creó exitosamente
+      } else {
+        // Manejar errores del servidor
+        const errorData = await response.json();
+        console.error("Error creating user:", errorData);
+      }
+    } catch (error) {
+      // Manejar errores de red
+      console.error("Network error:", error);
+    }
   };
 
   useEffect(() => {
@@ -255,17 +283,26 @@ const UserForm = () => {
                 label="Gender"
                 value={gender}
                 variant="bordered"
-                onChange={(value) => {
-                  setGender(value);
+                onChange={(e) => {
+                  setGender(e.target.value);
+                  console.log(e.target.value);
                 }}
                 isRequired
                 isInvalid={errorGender}
                 errorMessage="Please complete this field"
               >
-                <SelectItem value="F">Femenino</SelectItem>
-                <SelectItem value="M">Masculino</SelectItem>
-                <SelectItem value="NB">No binario</SelectItem>
-                <SelectItem value="PNR">Prefiero no reportar</SelectItem>
+                <SelectItem key={"F"} value={"F"}>
+                  Femenino
+                </SelectItem>
+                <SelectItem key={"M"} value={"M"}>
+                  Masculino
+                </SelectItem>
+                <SelectItem key={"NB"} value={"NB"}>
+                  No binario
+                </SelectItem>
+                <SelectItem key={"PNR"} value={"PNR"}>
+                  Prefiero no responder
+                </SelectItem>
               </Select>
 
               {/* Campo de entrada para el correo electrónico */}
@@ -295,10 +332,9 @@ const UserForm = () => {
                 isRequired
                 variant="bordered"
                 showMonthAndYearPickers
-                description={"Thiis is my birth date."}
+                description={"This is my birth date."}
                 isInvalid={errorBirthDay}
               />
-
               {/* Campo de entrada para el celular */}
               <Input
                 value={numberPhone}
@@ -328,14 +364,19 @@ const UserForm = () => {
                 value={documentType}
                 variant="bordered"
                 isRequired
-                onChange={(value) => {
-                  setDocumentType(value);
+                onChange={(e) => {
+                  setDocumentType(e.target.value);
+                  console.log(e.target.value);
                 }}
                 isInvalid={errorDocumentType}
                 errorMessage="Please complete this field"
               >
-                <SelectItem value="TI">Tarjeta de Identidad</SelectItem>
-                <SelectItem value="CC">Cédula</SelectItem>
+                <SelectItem key={"TI"} value={"TI"}>
+                  Tarjeta de Identidad
+                </SelectItem>
+                <SelectItem key={"CC"} value={"CC"}>
+                  Cédula
+                </SelectItem>
               </Select>
 
               {/* Campo de entrada para el numero de documento */}

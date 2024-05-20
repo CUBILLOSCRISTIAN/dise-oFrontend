@@ -24,10 +24,10 @@ const columns = [
 
 const statusOptions = [
   { name: "Active", uid: "active" },
-  { name: "Paused", uid: "paused" },
+  { name: "Inactive", uid: "inactive" },
 ];
 
-const INITIAL_VISIBLE_COLUMNS = ["numberDocument", "name", "gender", "status", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["numberDocument", "name", "gender", "actions"];
 
 // Json para usuarios con los campos de columns1
 const users = [
@@ -276,7 +276,7 @@ const users = [
 
 const statusColorMap = {
   active: "success",
-  paused: "danger",
+  inactive: "danger",
 };
 
 export {

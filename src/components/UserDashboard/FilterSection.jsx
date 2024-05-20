@@ -14,6 +14,7 @@ import { capitalize } from "../../utils";
 import { statusOptions, columns } from "../../data";
 import UserForm from "./UserForm";
 
+
 const FilterSection = ({
   filterValue,
   setFilterValue,
