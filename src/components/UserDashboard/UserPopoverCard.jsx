@@ -6,18 +6,14 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  PopoverContent,
-  User,
   Chip,
-  Spinner,
 } from "@nextui-org/react";
 import { statusColorMap } from "../../data";
 import { HiCalendar, HiPhone } from "react-icons/hi";
 import { LiaTransgenderSolid } from "react-icons/lia";
 import { FaRegAddressCard } from "react-icons/fa";
-export const UserTwitterCard = (user) => {
-  console.log(user.user);
 
+export const UserPopoverCard = (user) => {
   const {
     name,
     email,
@@ -64,60 +60,56 @@ export const UserTwitterCard = (user) => {
   }
 
   return (
-    <Card shadow="none" className="max-w-[500px] border-none bg-transparent">
-      <CardHeader className="justify-between bg-slate-200">
+    <Card shadow="none" className="max-w-[300px] border-none bg-transparent">
+      <CardHeader className="justify-between">
         <div className="flex gap-3">
-          <Avatar
-            isBordered
-            showFallback
-            name={name}
-            src={avatar}
-            radius="full"
-            className="w-20 h-20 text-large"
-            color={statusColorMap[status]}
-          />
-          <div className="flex flex-col gap-1 p-4">
-            <div className="text-2xl">{name}</div>
-            <div className="text-default-500 pl-4">{email}</div>
+          <Avatar isBordered radius="full" size="md" src={avatar} />
+          <div className="flex flex-col items-start justify-center">
+            <h4 className="text-small font-semibold leading-none text-default-600">
+              {name}
+            </h4>
+            <h5 className="text-small tracking-tight text-default-500">
+              {email}
+            </h5>
           </div>
         </div>
-
-        <Chip
-          className="capitalize"
-          color={statusColorMap[status]}
-          size="lg"
-          variant="flat"
-        >
-          {status}
-        </Chip>
       </CardHeader>
       <CardBody className="px-3 py-0">
-        <div className="max-w-4xl mx-auto p-6 ">
+        <div className="text-small pl-px text-default-500">
           <div className="gap gap-1">
             <div>
               <p className="flex items-center">
-                <HiCalendar className="text-xl mr-2" />
-                <strong>Fecha de nacimiento:</strong>{" "}
+                <HiCalendar className="mr-1" />
+                <strong className="mr-1">Fecha de nacimiento:</strong>
                 {new Date(birthDay).toLocaleDateString()}
               </p>
               <p className="flex items-center">
-                <FaRegAddressCard className="text-xl mr-2" />
-                <strong>{doc}:</strong> {numberDocument}
+                <FaRegAddressCard className="mr-1" />
+                <strong className="mr-1">{doc}:</strong> {numberDocument}
               </p>
 
               <p className="flex items-center">
-                <HiPhone className="text-xl mr-2" />
-                <strong>Teléfono:</strong> {numberPhone}
+                <HiPhone className="mr-1" />
+                <strong className="mr-1">Teléfono:</strong> {numberPhone}
               </p>
               <p className="flex items-center">
-                <LiaTransgenderSolid className="text-xl mr-2" />
-                <strong>Género:</strong> {sex}
+                <LiaTransgenderSolid className="mr-1" />
+                <strong className="mr-1">Género:</strong> {sex}
               </p>
             </div>
           </div>
         </div>
       </CardBody>
-      <CardFooter className="gap-3 "></CardFooter>
+      <CardFooter className="gap-3">
+        <Chip
+          className="capitalize"
+          color={statusColorMap[status]}
+          size="sm"
+          variant="flat"
+        >
+          {status}
+        </Chip>
+      </CardFooter>
     </Card>
   );
 };

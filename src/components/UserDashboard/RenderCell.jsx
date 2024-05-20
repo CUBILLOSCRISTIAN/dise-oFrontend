@@ -1,10 +1,19 @@
 import React from "react";
-import { Chip, User, Button, Tooltip } from "@nextui-org/react";
+import {
+  Chip,
+  User,
+  Button,
+  Tooltip,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@nextui-org/react";
 import { statusColorMap } from "../../data";
 import ActionDropdown from "./ActionDropdown";
 import { EditIcon } from "../../icons/EditIcon";
 import { DeleteIcon } from "../../icons/DeleteIcon";
 import { EyeIcon } from "../../icons/EyeIcon";
+import { UserPopoverCard } from "./UserPopoverCard";
 
 const RenderCell = (user, columnKey) => {
   const cellValue = user[columnKey];
@@ -12,16 +21,23 @@ const RenderCell = (user, columnKey) => {
   switch (columnKey) {
     case "name":
       return (
-        <User
-          avatarProps={{ radius: "full", size: "sm", src: user.avatar }}
-          classNames={{
-            description: "text-default-500",
-          }}
-          description={user.email}
-          name={cellValue}
-        >
-          {user.email}
-        </User>
+        <Popover placement="bottom" offset={20} showArrow>
+          <PopoverTrigger>
+            <User
+              avatarProps={{ radius: "full", size: "sm", src: user.avatar }}
+              classNames={{
+                description: "text-default-500",
+              }}
+              description={user.email}
+              name={cellValue}
+            >
+              {user.email}
+            </User>
+          </PopoverTrigger>
+          <PopoverContent>
+            <UserPopoverCard user={user} />
+          </PopoverContent>
+        </Popover>
       );
     case "status":
       return (

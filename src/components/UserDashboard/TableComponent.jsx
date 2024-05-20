@@ -15,7 +15,7 @@ import {
   Button,
 } from "@nextui-org/react";
 import RenderCell from "./RenderCell";
-import { UserTwitterCard } from "./UserTwitterCard";
+import { UserModalCard } from "./UserModalCard";
 
 const TableComponent = ({
   headerColumns,
@@ -36,11 +36,9 @@ const TableComponent = ({
     try {
       const response = await fetch(`http://localhost:3004/users/${item}`);
       const data = await response.json();
-      console.log(data);
       setUser(data);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching user:", error);
       setLoading(false);
     }
     onOpen();
@@ -116,10 +114,9 @@ const TableComponent = ({
                   View user details
                 </ModalHeader>
                 <ModalBody>
-                  <UserTwitterCard
+                  <UserModalCard
                     user={user}
                     onClose={onClose}
-                    loading={loading}
                   />
                 </ModalBody>
                 <ModalFooter>
