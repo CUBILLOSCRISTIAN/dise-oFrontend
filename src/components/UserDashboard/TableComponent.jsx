@@ -114,10 +114,7 @@ const TableComponent = ({
                   View user details
                 </ModalHeader>
                 <ModalBody>
-                  <UserModalCard
-                    user={user}
-                    onClose={onClose}
-                  />
+                  <UserModalCard user={user} onClose={onClose} />
                 </ModalBody>
                 <ModalFooter>
                   <Button auto onClick={onClose}>

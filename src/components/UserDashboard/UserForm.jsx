@@ -16,7 +16,7 @@ import {
 import { PlusIcon } from "../../icons/PlusIcon.jsx";
 import { MailIcon } from "../../icons/MailIcon.jsx";
 import ProfilePhotoUploader from "./ProfilePhotoUploader.jsx";
-import {getLocalTimeZone, today} from "@internationalized/date";
+import { getLocalTimeZone, today } from "@internationalized/date";
 import { useDateFormatter } from "@react-aria/i18n";
 
 // Definimos el componente de la aplicación
@@ -40,8 +40,7 @@ const UserForm = () => {
   const [gender, setGender] = useState("");
   const [errorGender, setErrorGender] = useState(false); // Estado para manejar errores de validación
 
-  const [photo, setPhoto] = useState(null); // Estado para manejar la foto seleccionada
-  const [photoError, setPhotoError] = useState(""); // Estado para manejar errores de la foto
+  const [avatar, setAvatar] = useState(null); // Estado para manejar la foto seleccionada
 
   const [documentType, setDocumentType] = useState("");
   const [errorDocumentType, setErrorDocumentType] = useState(false); // Estado para manejar errores de validación
@@ -51,7 +50,6 @@ const UserForm = () => {
 
   const [birthDay, setBirthDay] = useState(null);
   const [errorBirthDay, setErrorBirthDay] = useState(false); // Estado para manejar errores de validación
-  let formatter = useDateFormatter({ dateStyle: "long" });
 
   const [progress, setProgress] = useState(0);
 
@@ -60,11 +58,6 @@ const UserForm = () => {
 
   // Función para manejar el envío del formulario
   const handleSubmit = async () => {
-    // Realizar validaciones aquí
-    // Si todas las validaciones son exitosas, realizar acción necesaria (por ejemplo, enviar datos al servidor)
-    // Si hay errores de validación, mostrar mensajes de error apropiados
-    // Por ahora, solo cerramos el modal
-
     if (!firstName) {
       setErrorFirstName(true);
       return;
@@ -113,6 +106,11 @@ const UserForm = () => {
     }
     setErrorNumberDocument(false);
 
+    if (!avatar) {
+      console.error("Please select an avatar");
+      return;
+    }
+
     const name = `${firstName} ${secondName} ${lastName}`.trim();
 
     // Verificar que birthDay sea un objeto de fecha y convertir si es necesario
@@ -130,6 +128,7 @@ const UserForm = () => {
     }
 
     const data = {
+      avatar,
       name,
       email,
       birthDay: formattedBirthDay, // Usar el valor formateado
@@ -139,16 +138,25 @@ const UserForm = () => {
       gender,
     };
 
-    console.log("Data to send:", data);
+  
 
     try {
+      const formData = new FormData();
+
+      // Suponiendo que 'data' es un objeto con tus datos
+      Object.keys(data).forEach((key) => {
+        formData.append(key, data[key]);
+      });
+
+      console.log("Form data:", formData);
+
       const response = await fetch("http://localhost:3001/users", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        body: formData,
       });
+
+      // Manejo de la respuesta
+      const result = await response.json();
 
       if (response.ok) {
         // Manejar la respuesta exitosa
@@ -160,7 +168,6 @@ const UserForm = () => {
         console.error("Error creating user:", errorData);
       }
     } catch (error) {
-      // Manejar errores de red
       console.error("Network error:", error);
     }
   };
@@ -174,7 +181,7 @@ const UserForm = () => {
       if (email) completedFields++;
       if (numberPhone) completedFields++;
       if (gender) completedFields++;
-      if (photo) completedFields++;
+      if (avatar) completedFields++;
       if (documentType) completedFields++;
       if (numberDocument) completedFields++;
       if (birthDay) completedFields++;
@@ -188,7 +195,7 @@ const UserForm = () => {
     email,
     numberPhone,
     gender,
-    photo,
+    avatar,
     documentType,
     numberDocument,
     birthDay,
@@ -232,7 +239,7 @@ const UserForm = () => {
             {/* Cuerpo del modal */}
             <ModalBody>
               {/* Campo de entrada personalizado para la foto */}
-              <ProfilePhotoUploader />
+              <ProfilePhotoUploader image={avatar} setImage={setAvatar} />
 
               {/* Campo de entrada para el primer nombre */}
               <Input

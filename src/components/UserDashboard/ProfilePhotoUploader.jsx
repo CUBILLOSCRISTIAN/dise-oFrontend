@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Avatar } from "@nextui-org/react";
-import { CameraIcon } from "../../icons/CameraIcon"; // Asume que tienes este ícono
+import { CameraIcon } from "../../icons/CameraIcon"; // Ajusta la ruta según sea necesario
 
-const ProfilePhotoUploader = () => {
-  const [image, setImage] = useState(null);
+const ProfilePhotoUploader = ({ image, setImage }) => {
+  const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {
@@ -15,7 +15,8 @@ const ProfilePhotoUploader = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result);
+        setImage(file);
+        setPreview(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -71,10 +72,9 @@ const ProfilePhotoUploader = () => {
           <Avatar
             isBordered
             color="primary"
-            src={image}
+            src={preview}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
-          
         </Button>
       )}
     </div>

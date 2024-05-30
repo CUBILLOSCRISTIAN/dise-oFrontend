@@ -1,40 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
   Button,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   useDisclosure,
 } from "@nextui-org/react";
 import { VerticalDotsIcon } from "../../icons/VerticalDotsIcon";
-import { UserModalCard } from "./UserModalCard";
+import ModalView from "./Modales/ModalView";
+import ModalEdit from "./Modales/ModalEdit";
+import ModalDelete from "./Modales/ModalDelete";
 
 const ActionDropdown = (item) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [user, setUser] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+  const [activeModal, setActiveModal] = useState(null);
 
-  const handleAction = async (key) => {
-    console.log(item.user._id);
-    if (key === "view") {
-      try {
-        const response = await fetch(
-          `http://localhost:3004/users/${item.user._id}`
-        );
-        const data = await response.json();
-        setUser(data);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-      }
-      onOpen();
-    }
+  const handleAction = (key) => {
+    setActiveModal(key);
+    onOpen();
   };
 
   return (
@@ -56,25 +40,15 @@ const ActionDropdown = (item) => {
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
-      <Modal size="lg" isOpen={isOpen} onClose={onClose} backdrop="blur">
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                View user details
-              </ModalHeader>
-              <ModalBody>
-                <UserModalCard user={user} onClose={onClose} />
-              </ModalBody>
-              <ModalFooter>
-                <Button auto onClick={onClose}>
-                  Close
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
+      {activeModal === "view" && (
+        <ModalView item={item} isOpen={isOpen} onClose={onClose} />
+      )}
+      {activeModal === "edit" && (
+        <ModalEdit item={item} isOpen={isOpen} onClose={onClose} />
+      )}
+      {activeModal === "delete" && (
+        <ModalDelete item={item} isOpen={isOpen} onClose={onClose} />
+      )}
     </>
   );
 };
