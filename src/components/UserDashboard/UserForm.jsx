@@ -13,7 +13,6 @@ import {
   SelectItem,
   Progress,
 } from "@nextui-org/react";
-import { I18nProvider } from "@react-aria/i18n";
 import { PlusIcon } from "../../icons/PlusIcon.jsx";
 import { MailIcon } from "../../icons/MailIcon.jsx";
 import ProfilePhotoUploader from "./ProfilePhotoUploader.jsx";
@@ -80,6 +79,11 @@ const UserForm = () => {
       setErrorEmail(true);
       return;
     }
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      setErrorEmail(true);
+      return;
+    }
     setErrorEmail(false);
 
     if (!birthDay) {
@@ -88,7 +92,7 @@ const UserForm = () => {
     }
     setErrorBirthDay(false);
 
-    if (!numberPhone || numberPhone.length < 10) {
+    if (!numberPhone||numberPhone<10) {
       setErrorNumberPhone(true);
       return;
     }
@@ -107,7 +111,7 @@ const UserForm = () => {
     setErrorNumberDocument(false);
 
     if (!avatar) {
-      console.error("Please select an avatar");
+      alert("Please select an avatar");
       return;
     }
 
@@ -328,28 +332,23 @@ const UserForm = () => {
                 variant="bordered"
                 isRequired
                 isInvalid={errorEmail}
-                errorMessage="Please complete this field"
+                errorMessage="Please complete with the required format."
               />
 
               {/* Campo de entrada para la fecha de nacimiento */}
-              <I18nProvider locale="es-CO">
-                <DatePicker
-                  label="Date of Birth"
-                  value={birthDay}
-                  onChange={(value) => {
-                    setBirthDay(value);
-                  }}
-                  isRequired
-                  dateFormat="dd-MM-yyyy"
-                  variant="bordered"
-                  placeholderText="dd / mm / yyyy"
-                  showMonthAndYearPickers
-                  description={"This is my birth date."}
-                  isInvalid={errorBirthDay}
-                  maxValue={today(getLocalTimeZone())}
-                />
-              </I18nProvider>
-              
+              <DatePicker
+                label="Birth date"
+                value={birthDay}
+                onChange={(value) => {
+                  setBirthDay(value);
+                }}
+                isRequired
+                variant="bordered"
+                showMonthAndYearPickers
+                description={"This is my birth date."}
+                isInvalid={errorBirthDay}
+                maxValue={today(getLocalTimeZone())}
+              />
               {/* Campo de entrada para el celular */}
               <Input
                 value={numberPhone}

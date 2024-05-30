@@ -13,6 +13,11 @@ const ProfilePhotoUploader = ({ image, setImage }) => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      if (file.size > 2 * 1024 * 1024) { // Verificar si el archivo supera los 2MB
+        alert("The file exceeds the maximum file size of 2MB. Please select a smaller file.");
+        return;
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setImage(file);
