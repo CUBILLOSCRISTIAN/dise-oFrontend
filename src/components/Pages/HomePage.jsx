@@ -9,7 +9,7 @@ export function Home() {
           <div className="circlePosition w-[200px] h-[200px] left-[60%] top-[40%] absolute bg-[#d22fe0] rounded-[100%] z-1 blur-[100px] overflow-x-hidden"></div>
           <div className="z-10 w-full p-6 sm:-mt-10 lg:w-5/12 xl:w-1/2">
             <p className="inline px-3 py-1 mb-5 text-xs font-medium text-slate-700 border-2 rounded-lg font-heading sm:text-sm opacity-40 border-white/10">
-              Group #2 Diseño 2
+              Group #3 Diseño Software 2
             </p>
             <h1 className="mt-4 mb-5 text-4xl font-medium text-black font-heading md:text-6xl xl:text-11xl">
               Take{" "}
