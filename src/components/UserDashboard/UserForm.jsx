@@ -13,6 +13,7 @@ import {
   SelectItem,
   Progress,
 } from "@nextui-org/react";
+import { I18nProvider } from "@react-aria/i18n";
 import { PlusIcon } from "../../icons/PlusIcon.jsx";
 import { MailIcon } from "../../icons/MailIcon.jsx";
 import ProfilePhotoUploader from "./ProfilePhotoUploader.jsx";
@@ -331,19 +332,24 @@ const UserForm = () => {
               />
 
               {/* Campo de entrada para la fecha de nacimiento */}
-              <DatePicker
-                label="Birth date"
-                value={birthDay}
-                onChange={(value) => {
-                  setBirthDay(value);
-                }}
-                isRequired
-                variant="bordered"
-                showMonthAndYearPickers
-                description={"This is my birth date."}
-                isInvalid={errorBirthDay}
-                maxValue={today(getLocalTimeZone())}
-              />
+              <I18nProvider locale="es-CO">
+                <DatePicker
+                  label="Date of Birth"
+                  value={birthDay}
+                  onChange={(value) => {
+                    setBirthDay(value);
+                  }}
+                  isRequired
+                  dateFormat="dd-MM-yyyy"
+                  variant="bordered"
+                  placeholderText="dd / mm / yyyy"
+                  showMonthAndYearPickers
+                  description={"This is my birth date."}
+                  isInvalid={errorBirthDay}
+                  maxValue={today(getLocalTimeZone())}
+                />
+              </I18nProvider>
+              
               {/* Campo de entrada para el celular */}
               <Input
                 value={numberPhone}
