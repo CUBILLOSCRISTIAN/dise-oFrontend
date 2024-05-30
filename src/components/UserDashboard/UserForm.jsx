@@ -87,7 +87,7 @@ const UserForm = () => {
     }
     setErrorBirthDay(false);
 
-    if (!numberPhone) {
+    if (!numberPhone || numberPhone.length < 10) {
       setErrorNumberPhone(true);
       return;
     }
