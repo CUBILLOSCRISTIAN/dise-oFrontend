@@ -15,7 +15,7 @@ import {
 } from "@nextui-org/react";
 import { MailIcon } from "../../../icons/MailIcon.jsx";
 import ProfilePhotoUploader from "../ProfilePhotoUploader.jsx";
-import { getLocalTimeZone, today } from "@internationalized/date";
+import { getLocalTimeZone, today, parseDate } from "@internationalized/date";
 
 const ModalEdit = ({ item, isOpen, onClose }) => {
   // Estado para manejar los valores de los campos de entrada
@@ -147,38 +147,40 @@ const ModalEdit = ({ item, isOpen, onClose }) => {
     };
 
     try {
-      const formData = new FormData();
+      const response = await fetch(
+        `http://localhost:3002/users/update/${_id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            modified: true,
+          }),
+        }
+      );
 
-      Object.keys(data).forEach((key) => {
-        formData.append(key, data[key]);
-      });
-
-      const response = await fetch("http://localhost:3001/users", {
-        method: "POST",
-        body: formData,
-      });
-
-      let result = await response.json();
       if (response.ok) {
-        result.status = "edited";
+        delete item.user._id;
+        item.user.status = "edited";
         const formData = new FormData();
-        Object.keys(result).forEach((key) => {
-          formData.append(key, result[key]);
+
+        Object.keys(item.user).forEach((key) => {
+          formData.append(key, item.user[key]);
         });
         await fetch("http://localhost:3005/SearchLogger", {
           method: "POST",
           body: formData,
         });
-        console.log("User created successfully");
-        onClose(); // Cerrar el modal si el usuario se creó exitosamente
-        alert("User created successfully");
+        const data = await response.json();
+        console.log("Success:", data);
+        onClose();
+        alert("User edited successfully");
       } else {
-        // Manejar errores del servidor
-        const errorData = await response.json();
-        console.error("Error creating user:", errorData);
+        console.error("Error:", response.message);
       }
     } catch (error) {
-      console.error("Network error:", error);
+      console.error("Network Error:", error);
     }
   };
 
@@ -400,6 +402,13 @@ const ModalEdit = ({ item, isOpen, onClose }) => {
               <ModalFooter>
                 <Button auto onClick={onClose}>
                   Close
+                </Button>
+                <Button
+                  color="warning"
+                  variant="bordered"
+                  onClick={handleSubmit}
+                >
+                  update
                 </Button>
               </ModalFooter>
             </>
