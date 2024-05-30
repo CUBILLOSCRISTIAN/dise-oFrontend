@@ -23,7 +23,7 @@ const ModalEdit = ({ item, isOpen, onClose }) => {
     _id,
     name,
     avatar: photo,
-    numberDocument,
+    numberDocument: docNumber,
     numberPhone: number,
     documentType: typeDocument,
     birthDay: date,
@@ -56,7 +56,7 @@ const ModalEdit = ({ item, isOpen, onClose }) => {
   const [documentType, setDocumentType] = useState(typeDocument);
   const [errorDocumentType, setErrorDocumentType] = useState(false); // Estado para manejar errores de validación
 
-  const [numberDoc, setNumberDoc] = useState(numberDocument);
+  const [numberDocument, setNumberDoc] = useState(docNumber);
   const [errorNumberDocument, setErrorNumberDocument] = useState(false); // Estado para manejar errores de validación
 
   const [birthDay, setBirthDay] = useState(null);
