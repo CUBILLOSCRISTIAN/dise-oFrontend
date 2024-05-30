@@ -9,6 +9,7 @@ import {
   typeDocumentOptions,
 } from "./data";
 import { Spinner } from "@nextui-org/react";
+import { parseDate, getLocalTimeZone } from "@internationalized/date";
 
 const LogerDashboard = () => {
   const [users, setUsers] = React.useState([]);
@@ -26,6 +27,11 @@ const LogerDashboard = () => {
     direction: "descending",
   });
   const [page, setPage] = React.useState(1);
+
+  const [dateFilter, setDateFilter] = React.useState({
+    start: parseDate("2024-05-01"),
+    end: parseDate("2024-05-31"),
+  });
 
   const fetchUsers = async () => {
     try {
@@ -61,6 +67,14 @@ const LogerDashboard = () => {
         user.numberDocument.toString().includes(filterValue)
       );
     }
+    if (dateFilter.start && dateFilter.end) {
+      filteredUsers = filteredUsers.filter((user) => {
+        const date = new Date(user.DataTransfer).toLocaleDateString();
+        const dateStart = new Date(dateFilter.start).toLocaleDateString();
+        const dateEnd = new Date(dateFilter.end).toLocaleDateString();
+        return date >= dateStart && date <= dateEnd;
+      });
+    }
     if (
       typeDocumentFilter !== "all" &&
       Array.from(typeDocumentFilter).length !== typeDocumentOptions.length
@@ -80,7 +94,7 @@ const LogerDashboard = () => {
     }
 
     return filteredUsers;
-  }, [users, filterValue, statusFilter, typeDocumentFilter]);
+  }, [users, filterValue, statusFilter, typeDocumentFilter, dateFilter]);
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
@@ -124,6 +138,8 @@ const LogerDashboard = () => {
       onSearchChange={onSearchChange}
       usersLength={users.length}
       onRowsPerPageChange={onRowsPerPageChange}
+      dateFilter={dateFilter}
+      setDateFilter={setDateFilter}
     />
   );
 

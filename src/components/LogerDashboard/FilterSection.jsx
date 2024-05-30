@@ -12,6 +12,7 @@ import { SearchIcon } from "../../icons/SearchIcon";
 import { ChevronDownIcon } from "../../icons/ChevronDownIcon";
 import { capitalize } from "../../utils";
 import { statusOptions, columns, typeDocumentOptions } from "./data";
+import {parseDate, getLocalTimeZone} from "@internationalized/date";
 
 const FilterSection = ({
   filterValue,
@@ -25,6 +26,8 @@ const FilterSection = ({
   onSearchChange,
   usersLength,
   onRowsPerPageChange,
+  dateFilter,
+  setDateFilter,
 }) => (
   <div className="flex flex-col gap-4">
     <div className="flex justify-between gap-3 items-end">
@@ -46,6 +49,8 @@ const FilterSection = ({
         label="Range date"
         visibleMonths={2}
         pageBehavior="single"
+        value={dateFilter}
+        onChange={setDateFilter}
       />
       <div className="flex gap-3">
         <Dropdown>
