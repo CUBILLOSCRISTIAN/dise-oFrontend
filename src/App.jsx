@@ -3,6 +3,7 @@ import { SideBar } from "./components/SideBar/SideBar";
 import { Routes, Route } from "react-router-dom";
 import UserDashboard from "./components/UserDashboard/UserDashboard.jsx";
 import { Home } from "./components/Pages/HomePage.jsx";
+import LogerDashboard from "./components/LogerDashboard/LogerDashboard.jsx";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/Users" element={<UserDashboard />} />
+                  <Route path="/SearchLogger" element={<LogerDashboard />} />
                 </Routes>
               </div>
             </div>

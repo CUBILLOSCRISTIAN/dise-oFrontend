@@ -20,7 +20,6 @@ const ModalEdit = ({ item, isOpen, onClose }) => {
               Edit user details
             </ModalHeader>
             <ModalBody>
-              {/* Aquí puedes añadir el formulario de edición */}
               <p>Edit User Form goes here.</p>
             </ModalBody>
             <ModalFooter>

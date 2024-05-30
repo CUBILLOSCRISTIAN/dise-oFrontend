@@ -2,10 +2,15 @@ import React from "react";
 import TableComponent from "./TableComponent";
 import FilterSection from "./FilterSection";
 import PaginationSection from "./PaginationSection";
-import { columns, INITIAL_VISIBLE_COLUMNS, statusOptions } from "../../data";
+import {
+  columns,
+  INITIAL_VISIBLE_COLUMNS,
+  statusOptions,
+  typeDocumentOptions,
+} from "./data";
 import { Spinner } from "@nextui-org/react";
 
-const UserDashboard = () => {
+const LogerDashboard = () => {
   const [users, setUsers] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [filterValue, setFilterValue] = React.useState("");
@@ -13,29 +18,31 @@ const UserDashboard = () => {
   const [visibleColumns, setVisibleColumns] = React.useState(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
-  const [statusFilter, setStatusFilter] = React.useState("active");
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [statusFilter, setStatusFilter] = React.useState("all");
+  const [typeDocumentFilter, setTypeDocumentFilter] = React.useState("all");
+  const [rowsPerPage, setRowsPerPage] = React.useState(15);
   const [sortDescriptor, setSortDescriptor] = React.useState({
-    column: "numberDocument",
-    direction: "ascending",
+    column: "DataTransfer",
+    direction: "descending",
   });
   const [page, setPage] = React.useState(1);
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://localhost:3004/users");
+      const response = await fetch("http://localhost:3005/SearchLogger");
       const data = await response.json();
       setUsers(data);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching users:", error);
+      alert("Error fetching logs");
+      console.error("Error fetching logs:", error);
       setLoading(false);
     }
   };
 
   React.useEffect(() => {
     fetchUsers();
-  }, [users, filterValue, statusFilter]);
+  }, []);
 
   const pages = Math.ceil(users.length / rowsPerPage);
   const hasSearchFilter = Boolean(filterValue);
@@ -54,16 +61,26 @@ const UserDashboard = () => {
         user.numberDocument.toString().includes(filterValue)
       );
     }
-    // if (
-    //   statusFilter !== "all" &&
-    //   Array.from(statusFilter).length !== statusOptions.length
-    // ) {
-    //   filteredUsers = filteredUsers.filter((user) =>
-    //     Array.from(statusFilter).includes(user.status)
-    //   );
-    // }
+    if (
+      typeDocumentFilter !== "all" &&
+      Array.from(typeDocumentFilter).length !== typeDocumentOptions.length
+    ) {
+      filteredUsers = filteredUsers.filter((user) =>
+        Array.from(typeDocumentFilter).includes(user.documentType)
+      );
+    }
+
+    if (
+      statusFilter !== "all" &&
+      Array.from(statusFilter).length !== statusOptions.length
+    ) {
+      filteredUsers = filteredUsers.filter((user) =>
+        Array.from(statusFilter).includes(user.status)
+      );
+    }
+
     return filteredUsers;
-  }, [users, filterValue, statusFilter]);
+  }, [users, filterValue, statusFilter, typeDocumentFilter]);
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
@@ -100,6 +117,8 @@ const UserDashboard = () => {
       setFilterValue={setFilterValue}
       statusFilter={statusFilter}
       setStatusFilter={setStatusFilter}
+      typeDocumentFilter={typeDocumentFilter}
+      setTypeDocumentFilter={setTypeDocumentFilter}
       visibleColumns={visibleColumns}
       setVisibleColumns={setVisibleColumns}
       onSearchChange={onSearchChange}
@@ -151,4 +170,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default LogerDashboard;

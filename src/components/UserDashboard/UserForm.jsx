@@ -17,7 +17,6 @@ import { PlusIcon } from "../../icons/PlusIcon.jsx";
 import { MailIcon } from "../../icons/MailIcon.jsx";
 import ProfilePhotoUploader from "./ProfilePhotoUploader.jsx";
 import { getLocalTimeZone, today } from "@internationalized/date";
-import { useDateFormatter } from "@react-aria/i18n";
 
 // Definimos el componente de la aplicación
 const UserForm = () => {
@@ -138,30 +137,32 @@ const UserForm = () => {
       gender,
     };
 
-  
-
     try {
       const formData = new FormData();
 
-      // Suponiendo que 'data' es un objeto con tus datos
       Object.keys(data).forEach((key) => {
         formData.append(key, data[key]);
       });
-
-      console.log("Form data:", formData);
 
       const response = await fetch("http://localhost:3001/users", {
         method: "POST",
         body: formData,
       });
 
-      // Manejo de la respuesta
-      const result = await response.json();
-
+      let result = await response.json();
       if (response.ok) {
-        // Manejar la respuesta exitosa
+        result.status = "created";
+        const formData = new FormData();
+        Object.keys(result).forEach((key) => {
+          formData.append(key, result[key]);
+        });
+        await fetch("http://localhost:3005/SearchLogger", {
+          method: "POST",
+          body: formData,
+        });
         console.log("User created successfully");
         onClose(); // Cerrar el modal si el usuario se creó exitosamente
+        alert("User created successfully");
       } else {
         // Manejar errores del servidor
         const errorData = await response.json();

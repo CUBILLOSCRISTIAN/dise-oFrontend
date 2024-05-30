@@ -11,7 +11,48 @@ import {
 import { UserIcon } from "../../../icons/UserIcon";
 
 const ModalDelete = ({ item, isOpen, onClose }) => {
-  const { name, avatar, numberDocument } = item.user;
+  const { _id, name, avatar, numberDocument } = item.user;
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3003/users/delete/${_id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            deleted: true,
+            status: "inactive",
+          }),
+        }
+      );
+
+      if (response.ok) {
+        delete item.user._id;
+        item.user.status = "deleted";
+        const formData = new FormData();
+
+        Object.keys(item.user).forEach((key) => {
+          formData.append(key, item.user[key]);
+        });
+        await fetch("http://localhost:3005/SearchLogger", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await response.json();
+        console.log("Success:", data);
+        onClose();
+        alert("User deleted successfully");
+      } else {
+        console.error("Error:", response.message);
+      }
+    } catch (error) {
+      console.error("Network Error:", error);
+    }
+  };
+
   // Aquí puedes añadir la lógica de edición
   return (
     <Modal size="lg" isOpen={isOpen} onClose={onClose} backdrop="blur">
@@ -23,7 +64,15 @@ const ModalDelete = ({ item, isOpen, onClose }) => {
             </ModalHeader>
             <ModalBody>
               {/* Aquí puedes añadir el formulario de edición */}
-              <p>Are you sure you want to delete this user?</p>
+              <div className="">
+                <p className="text-base font-semibold text-gray-700">
+                  Are you sure you want to delete this user?
+                </p>
+                <p className="text-gray-500 mt-2">
+                  This action cannot be undone.
+                </p>
+              </div>
+
               <User
                 name={name}
                 description={numberDocument}
@@ -41,6 +90,7 @@ const ModalDelete = ({ item, isOpen, onClose }) => {
                 color="danger"
                 variant="bordered"
                 startContent={<UserIcon />}
+                onClick={handleDelete}
               >
                 Delete user
               </Button>
